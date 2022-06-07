@@ -1,27 +1,20 @@
-# from rest_framework.test import APIRequestFactory
-# from rest_framework.test import force_authenticate
-# from django.contrib.auth.models import User
-# from contacts.views import ContactsView
-#
-#
-# factory = APIRequestFactory()
-# user = User.objects.get(username='root')
-# view = ContactsView.as_view()
-#
-# # Make an authenticated request to the view...
-# request = factory.get('/contacts/')
-# force_authenticate(request, user=user)
-# response = view(request)
-#
-#
-#
-#
-# factory = APIRequestFactory()
-# user = User.objects.get(username='root')
-# view = ContactsView.as_view()
-#
-# # Make an authenticated request to the view...
-# json = {'owner': 'root', 'name': 'Adam', 'number': '+79117363277', 'comment': 'Friend'}
-# request = factory.post('/contacts/', json=json)
-# force_authenticate(request, user=user)
-# response = view(request)
+from django.test import TestCase
+from contacts.models import Contact
+from django.contrib.auth.models import User
+
+
+class ContactTestCase(TestCase):
+    def testContactModel(self):
+        user = User.objects.create_user(
+            username='test',
+            password='test')
+
+        contact = Contact(owner=user,
+                            name="Adam",
+                            number="+79214442233",
+                            comment="Friend")
+
+        self.assertEqual(contact.owner.username, "test")
+        self.assertEqual(contact.name, "Adam")
+        self.assertEqual(contact.number, "+79214442233")
+        self.assertEqual(contact.comment, "Friend")
