@@ -10,9 +10,9 @@ class ContactTestCase(TestCase):
             password='test')
 
         contact = Contact(owner=user,
-                            name="Adam",
-                            number="+79214442233",
-                            comment="Friend")
+                          name="Adam",
+                          number="+79214442233",
+                          comment="Friend")
 
         self.assertEqual(contact.owner.username, "test")
         self.assertEqual(contact.name, "Adam")
