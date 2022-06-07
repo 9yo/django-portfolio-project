@@ -1,5 +1,5 @@
 #https://www.hacksoft.io/blog/github-actions-in-action-setting-up-django-and-postgres
-name: Python package
+name: workflow-testing
 
 on: [push]
 
