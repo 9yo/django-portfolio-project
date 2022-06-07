@@ -21,7 +21,9 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=200)),
                 ('number', models.CharField(max_length=30)),
                 ('comment', models.CharField(max_length=500)),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                ('owner', models.ForeignKey(null=True,
+                                            on_delete=django.db.models.deletion.SET_NULL,
+                                            to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

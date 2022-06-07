@@ -13,6 +13,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+
 class CreateUserView(CreateAPIView):
     model = User
     permission_classes = [
