@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-# import os
+import os
 from pathlib import Path
 
 
@@ -89,17 +89,13 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        # 'NAME': os.environ.get('POSTGRES_NAME'),
-        'NAME': 'contacts',
+        'NAME': os.environ.get('POSTGRES_NAME'),
 
-        # 'USER': os.environ.get('POSTGRES_USER'),
-        'USER': 'root',
+        'USER': os.environ.get('POSTGRES_USER'),
 
-        # 'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'PASSWORD': 'root',
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
 
-        # 'HOST': 'db',
-        'HOST': 'localhost',
+        'HOST': 'db',
 
         'PORT': '5432',
 
