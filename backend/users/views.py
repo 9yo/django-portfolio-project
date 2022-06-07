@@ -16,6 +16,6 @@ class UserViewSet(viewsets.ModelViewSet):
 class CreateUserView(CreateAPIView):
     model = User
     permission_classes = [
-        permissions.AllowAny # Or anon users can't register
+        permissions.AllowAny
     ]
     serializer_class = UserSerializer
