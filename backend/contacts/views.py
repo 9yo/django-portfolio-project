@@ -1,5 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from contacts.models import Contact
 from contacts.serializers import ContactSerializer
 from contacts.permissions import IsOwner
@@ -22,7 +23,7 @@ class ContactsViewSet(viewsets.ModelViewSet):
             queryset = self.queryset
         else:
             queryset = self.queryset.filter(owner=request.user)
-            
+
         queryset = self.filter_queryset(queryset)
 
         page = self.paginate_queryset(queryset)
