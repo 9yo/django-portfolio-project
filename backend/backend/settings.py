@@ -84,6 +84,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# docker setup
 DATABASES = {
     'default': {
 
@@ -102,6 +103,26 @@ DATABASES = {
     }
 }
 
+#local db setup
+# DATABASES = {
+#     'default': {
+#
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#
+#         'NAME': 'contacts',
+#
+#         'USER': 'root',
+#
+#         'PASSWORD': 'root',
+#
+#         'HOST': 'localhost',
+#
+#         'PORT': '5432',
+#
+#     }
+# }
+
+#github workflow setup
 if os.environ.get('GITHUB_WORKFLOW'):
     DATABASES = {
         'default': {
