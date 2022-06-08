@@ -103,7 +103,7 @@ DATABASES = {
     }
 }
 
-#local db setup
+# local db setup
 # DATABASES = {
 #     'default': {
 #
@@ -122,7 +122,7 @@ DATABASES = {
 #     }
 # }
 
-#github workflow setup
+# github workflow setup
 if os.environ.get('GITHUB_WORKFLOW'):
     DATABASES = {
         'default': {
