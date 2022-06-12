@@ -27,12 +27,20 @@ SECRET_KEY = 'django-insecure-@z4m1g_!b&nih4lo01l$ckzn+sf$h2--!l)y=3-%gamv34+w(o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 ALLOWED_HOSTS = []
+
 
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
 }
 
 # Application definition
@@ -46,6 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework_simplejwt',
+    'corsheaders',
     'contacts',
     'users'
 ]
@@ -58,6 +68,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -85,42 +97,42 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 # docker setup
-DATABASES = {
-    'default': {
-
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-        'NAME': os.environ.get('POSTGRES_NAME'),
-
-        'USER': os.environ.get('POSTGRES_USER'),
-
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-
-        'HOST': 'db',
-
-        'PORT': '5432',
-
-    }
-}
-
-# local db setup
 # DATABASES = {
 #     'default': {
 #
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #
-#         'NAME': 'contacts',
+#         'NAME': os.environ.get('POSTGRES_NAME'),
 #
-#         'USER': 'root',
+#         'USER': os.environ.get('POSTGRES_USER'),
 #
-#         'PASSWORD': 'root',
+#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
 #
-#         'HOST': 'localhost',
+#         'HOST': 'db',
 #
 #         'PORT': '5432',
 #
 #     }
 # }
+
+# local db setup
+DATABASES = {
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': 'contacts',
+
+        'USER': 'root',
+
+        'PASSWORD': 'root',
+
+        'HOST': 'localhost',
+
+        'PORT': '5432',
+
+    }
+}
 
 # github workflow setup
 if os.environ.get('GITHUB_WORKFLOW'):
