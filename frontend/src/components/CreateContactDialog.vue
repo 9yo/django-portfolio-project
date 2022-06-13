@@ -4,15 +4,15 @@
       max-width="300">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="success"
-          fab
-          style='position:absolute; right:10px; bottom: 100px'
+          small
+          color="#238636"
           @click='creation_dialog=true'
           v-bind="attrs"
           v-on="on">
-           <v-icon>
-             mdi-plus
+           <v-icon small>
+             mdi-account-box
            </v-icon>
+           <span class="pl-1 font-weight-light text-capitalize"> New </span>
          </v-btn>
        </template>
        <template v-slot:default="dialog">
@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import axiosInstance from '../../utils/auth'
+import axiosAuth from '../../utils/auth'
 
 export default {
   name: 'CreateContactDialog',
@@ -87,7 +87,7 @@ export default {
   },
   methods: {
     save() {
-      axiosInstance.post('/contacts/', {
+      axiosAuth.post('/contacts/', {
         'name': this.name_storage,
         'number': this.number_storage,
         'comment': this.comment_storage,

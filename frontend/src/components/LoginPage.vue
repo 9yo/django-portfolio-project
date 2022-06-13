@@ -1,63 +1,90 @@
 <template>
   <v-app>
-    <v-card class='ma-auto my-auto"'>
-      <v-card-title>
-        <v-spacer/>
-          <span>Login</span>
-        <v-spacer/>
-      </v-card-title>
-      <v-card-text>
-        <v-container>
-          <v-row>
-            <v-col
-              cols="12"
+    <v-row style='max-height:100px'>
+    </v-row>
+    <v-row style="max-height:100px">
+        <v-img
+          class="mx-auto"
+          max-height="75"
+          max-width="75"
+          src="http://localhost:8000/static/logo.png"
+        ></v-img>
+
+    </v-row>
+    <v-row style="max-height:50px" class='mt-0'>
+      <span class="mx-auto"> Contact Book </span>
+    </v-row>
+    <v-row style="max-height:300px" justify="center">
+      <v-col style='max-width:350px'>
+        <v-card outlined
+                class='mb-4'
+                style='min-height:40px; background-color: rgba(248,81,73,0.15); border-color: rgba(248,81,73,0.4);'
+                v-show="wrong_data">
+          <v-card-title class="justify-center"
+            style='font-size:14px'>
+            Incorrect username or password.
+            <v-spacer/>
+            <v-btn icon @click='wrong_data=false'>
+              <v-icon style='color:rgba(248,81,73,0.4)'>
+                mdi-close
+              </v-icon>
+            </v-btn>
+          </v-card-title>
+        </v-card>
+        <v-card outlined>
+            <v-container>
+              <v-row>
+                <v-col
+                  cols="12"
+                >
+                  <label>Username</label>
+                  <v-text-field
+                  hide-details
+                    v-model="login_storage"
+                    outlined
+                    dense
+                    required
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col
+                  cols="12"
+                >
+                  <label>Password</label>
+                  <v-text-field
+                    hide-details
+                    v-model="password_storage"
+                    :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="show ? 'text' : 'password'"
+                    outlined
+                    dense
+                    required
+                    @click:append="show = !show"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+          <v-card-actions>
+            <v-btn
+              block
+              class="text-capitalize"
+              color="success"
+              @click="handleLogin()"
             >
-              <v-text-field
-                v-model="login_storage"
-                label="login"
-                required
-              ></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col
-              cols="12"
-            >
-              <v-text-field
-                v-model="password_storage"
-                label="password"
-                required
-              ></v-text-field>
-            </v-col>
-          </v-row>
-        </v-container>
-        <v-row class="pr-md-10" v-if="missing_data">
-          <v-spacer/>
-          <span style="color:red"> Please, fill both fields </span>
-        </v-row>
-        <v-row class="pr-md-5" v-if="wrong_data">
-          <v-spacer/>
-          <span style="color:red"> Password or login is not correct </span>
-        </v-row>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn
-          color="blue darken-1"
-          text
-          @click="dialog = false"
-        >
-          Exit
-        </v-btn>
-        <v-btn
-          color="blue darken-1"
-          text
-          @click="handleLogin()"
-        >
-          Login
-        </v-btn>
-      </v-card-actions>
-    </v-card>
+              Sign in
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+        <v-card outlined class='mt-4' style='min-height:40px'>
+          <v-card-title class="justify-center"
+            style='font-size:14px'>
+            New to Contact Book?
+            <a href="/register" class="pl-1" style='color:#58a6ff'> Create an account. </a>
+          </v-card-title>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-app>
 </template>
 
@@ -69,22 +96,16 @@ export default {
 
   data() {
     return {
-      dialog: true,
+      show: false,
       wrong_data: false,
-      missing_data: false,
       login_storage: '',
       password_storage: '',
     }
   },
   methods: {
     handleLogin() {
-      if (!this.login_storage | !this.password_storage) {
-        this.missing_data = true;
-        return;
-      } else {
-        this.missing_data = false;
-      }
-      if (!login(this.login_storage, this.password_storage)) {
+      if (!this.login_storage | !this.password_storage |
+        !login(this.login_storage, this.password_storage)) {
         this.wrong_data = true;
       }
     }

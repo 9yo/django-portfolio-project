@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LoginPage from '@/components/LoginPage'
 import ContactsPage from '@/components/ContactsPage'
+import RegisterPage from '@/components/RegisterPage'
 import { isLoggedIn } from 'axios-jwt'
 
 Vue.use(VueRouter)
@@ -15,6 +16,12 @@ const router = new VueRouter({
       component: LoginPage,
       meta: { requiresAuth: false }
 
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: RegisterPage,
+      meta: { requiresAuth: false }
     },
     {
       path: '/contacts',

@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import axiosInstance from '../../utils/auth'
+import axiosAuth from '../../utils/auth'
 
 export default {
   name: 'EditContactDialog',
@@ -84,7 +84,7 @@ export default {
 
   methods: {
     edit() {
-      axiosInstance.patch(`/contacts/${this.contact.id}/`, {
+      axiosAuth.patch(`/contacts/${this.contact.id}/`, {
         'name': this.name_storage,
         'number': this.number_storage,
         'comment': this.comment_storage
