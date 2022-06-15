@@ -3,10 +3,17 @@
       transition="dialog-bottom-transition"
       max-width="300">
       <template v-slot:activator="{ on, attrs }">
+        <div
+          class='text-caption'
+          v-if="mode == 'hyperlink'"
+          v-bind="attrs"
+          v-on="on">
+          {{ contact.name }}
+        </div>
         <v-btn
+          v-else
           icon
           style='position:absolute; right:0px; bottom: 0px'
-          @click='creation_dialog=true'
           v-bind="attrs"
           v-on="on">
            <v-icon>
@@ -15,55 +22,43 @@
          </v-btn>
        </template>
        <template v-slot:default="dialog">
-          <v-card>
-            <v-toolbar
-              color="primary"
-              dark
-            >Edit contact</v-toolbar>
-            <v-row>
-              <v-col
-                cols="8"
-                class="pl-10"
-              >
-                <v-text-field
-                  v-model="name_storage"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col
-                cols="8"
-                class="pl-10"
-              >
-                <v-text-field
-                  v-model="number_storage"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col
-                cols="8"
-                class="pl-10"
-              >
-                <v-text-field
-                  v-model="comment_storage"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-card-actions class="justify-end">
-              <v-btn
-                text
-                @click="dialog.value = false"
-              >Exit</v-btn>
-              <v-btn
-                text
-                @click="dialog.value = false; edit()"
-              >Edit</v-btn>
-            </v-card-actions>
-          </v-card>
+         <v-card style='overflow: hidden'>
+           <v-toolbar
+             dark>
+             Edit contact
+             <v-spacer/>
+             <v-btn
+               icon
+               @click='dialog.value = false;'>
+               <v-icon>
+                 mdi-close
+               </v-icon>
+             </v-btn>
+           </v-toolbar>
+           <div class='py-5'>
+             <v-row justify="center" v-for="(field, index) in fields_data" :key='index'>
+               <v-col
+                 cols="11"
+               >
+                 <v-text-field
+                   v-model='fields_data[index]'
+                   hide-details
+                   outlined
+                   dense
+                   required
+                 ></v-text-field>
+               </v-col>
+             </v-row>
+           </div>
+           <v-card-actions class="justify-end">
+             <v-btn
+               block
+               class="text-capitalize"
+               color="success"
+               @click="dialog.value = false; edit()"
+             >Edit</v-btn>
+           </v-card-actions>
+         </v-card>
         </template>
      </v-dialog>
 </template>
@@ -73,21 +68,24 @@ import axiosAuth from '../../utils/auth'
 
 export default {
   name: 'EditContactDialog',
-  props: ['contact'],
+  props: ['contact', 'mode'],
   data() {
     return {
-      name_storage: this.contact.name,
-      number_storage: this.contact.number,
-      comment_storage: this.contact.comment,
+      fields_data: [
+        this.contact.name,
+        this.contact.number,
+        this.contact.comment,
+      ],
     }
   },
+
 
   methods: {
     edit() {
       axiosAuth.patch(`/contacts/${this.contact.id}/`, {
-        'name': this.name_storage,
-        'number': this.number_storage,
-        'comment': this.comment_storage
+        'name': this.fields_data[0],
+        'number': this.fields_data[1],
+        'comment': this.fields_data[2]
       })
          .then(response => {
            console.log(response.data);

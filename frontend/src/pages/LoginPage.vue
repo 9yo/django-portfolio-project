@@ -39,7 +39,7 @@
                 >
                   <label>Username</label>
                   <v-text-field
-                  hide-details
+                    hide-details
                     v-model="login_storage"
                     outlined
                     dense

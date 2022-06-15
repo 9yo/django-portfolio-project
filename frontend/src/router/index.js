@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import LoginPage from '@/components/LoginPage'
-import ContactsPage from '@/components/ContactsPage'
-import RegisterPage from '@/components/RegisterPage'
+import LoginPage from '@/pages/LoginPage'
+import ContactsPage from '@/pages/ContactsPage'
+import ContactBooksPage from '@/pages/ContactBooksPage'
+import RegisterPage from '@/pages/RegisterPage'
 import { isLoggedIn } from 'axios-jwt'
 
 Vue.use(VueRouter)
@@ -27,6 +28,12 @@ const router = new VueRouter({
       path: '/contacts',
       name: 'Contacts',
       component: ContactsPage,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/contact_books',
+      name: 'Contact Books',
+      component: ContactBooksPage,
       meta: { requiresAuth: true }
     },
     { path: "*",

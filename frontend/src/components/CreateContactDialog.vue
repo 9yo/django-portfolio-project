@@ -16,54 +16,40 @@
          </v-btn>
        </template>
        <template v-slot:default="dialog">
-          <v-card>
+          <v-card style='overflow: hidden'>
             <v-toolbar
-              color="primary"
-              dark
-            >Create new contact</v-toolbar>
-            <v-row>
-              <v-col
-                cols="8"
-                class="pl-10"
-              >
-                <v-text-field
-                  v-model="name_storage"
-                  label="Name"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col
-                cols="8"
-                class="pl-10"
-              >
-                <v-text-field
-                  v-model="number_storage"
-                  label="Number"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col
-                cols="8"
-                class="pl-10"
-              >
-                <v-text-field
-                  v-model="comment_storage"
-                  label="Comment"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
+              dark>
+              Create new contact
+              <v-spacer/>
+              <v-btn
+                icon
+                @click='dialog.value = false;'>
+                <v-icon>
+                  mdi-close
+                </v-icon>
+              </v-btn>
+            </v-toolbar>
+            <div class='py-5'>
+              <v-row justify="center" v-for="(field, index) in fields" :key='field'>
+                <v-col
+                  cols="11"
+                >
+                  <v-text-field
+                    v-model='fields_data[index]'
+                    :label='field'
+                    hide-details
+                    outlined
+                    dense
+                    required
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </div>
             <v-card-actions class="justify-end">
               <v-btn
-                text
-                @click="dialog.value = false"
-              >Exit</v-btn>
-              <v-btn
-                text
+                block
+                class="text-capitalize"
+                color="success"
                 @click="dialog.value = false; save()"
               >Save</v-btn>
             </v-card-actions>
@@ -79,18 +65,17 @@ export default {
   name: 'CreateContactDialog',
   data() {
     return {
-      name_storage: '',
-      number_storage: '',
-      comment_storage: '',
+      fields_data: [],
+      fields: ['Name', 'Number', 'Comment']
 
     }
   },
   methods: {
     save() {
       axiosAuth.post('/contacts/', {
-        'name': this.name_storage,
-        'number': this.number_storage,
-        'comment': this.comment_storage,
+        'name': this.fields_data[0],
+        'number': this.fields_data[1],
+        'comment': this.fields_data[2],
       })
          .then(response => {
            console.log(response.data);

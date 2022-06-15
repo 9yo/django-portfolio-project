@@ -13,7 +13,9 @@ from contacts import views as contacts_views
 
 router = routers.DefaultRouter()
 router.register(r'users', user_views.UserViewSet)
-router.register(r'contacts', contacts_views.ContactsViewSet)
+router.register(r'contacts', contacts_views.ContactViewSet)
+router.register(r'contact_books', contacts_views.ContactBookViewSet)
+
 
 
 urlpatterns = [

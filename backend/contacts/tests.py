@@ -4,7 +4,7 @@ from rest_framework.test import APIRequestFactory
 
 
 from contacts.models import Contact
-from contacts.views import ContactsViewSet
+from contacts.views import ContactViewSet
 
 
 class ContactTestCase(TestCase):
@@ -31,7 +31,7 @@ class ContactTestCase(TestCase):
             'get': 'retrieve',
             'post': 'create'
         }
-        view = ContactsViewSet.as_view(actions)
+        view = ContactViewSet.as_view(actions)
         first_user = User.objects.create_user(username='first',
                                               password='first')
         second_user = User.objects.create_user(username='second',
