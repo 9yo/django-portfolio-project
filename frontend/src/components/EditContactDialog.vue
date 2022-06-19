@@ -13,7 +13,6 @@
         <v-btn
           v-else
           icon
-          style='position:absolute; right:0px; bottom: 0px'
           v-bind="attrs"
           v-on="on">
            <v-icon>
@@ -82,7 +81,7 @@ export default {
 
   methods: {
     edit() {
-      axiosAuth.patch(`/contacts/${this.contact.id}/`, {
+      axiosAuth.patch(`/api/contacts/${this.contact.id}/`, {
         'name': this.fields_data[0],
         'number': this.fields_data[1],
         'comment': this.fields_data[2]

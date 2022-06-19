@@ -13,11 +13,6 @@
          Contacts
        </a>
     </v-col>
-    <v-col>
-       <a class='font-weight-medium' style='color:white; text-decoration: none;' href="/contact_books">
-        Contact Books
-      </a>
-    </v-col>
     <v-spacer/>
     <v-col style='max-width:50px'>
       <v-btn icon dark v-on:click="handleLogout">

@@ -10,7 +10,7 @@
           v-bind="attrs"
           v-on="on">
            <v-icon small>
-             mdi-account-box
+             mdi-book-plus
            </v-icon>
            <span class="pl-1 font-weight-light text-capitalize"> New </span>
          </v-btn>
@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     save() {
-      axiosAuth.post('/contact_books/', {
+      axiosAuth.post('api/contact_books/', {
         'name': this.fields_data[0],
         'desc': this.fields_data[1],
         'contacts': [],

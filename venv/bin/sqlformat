@@ -1,4 +1,4 @@
-#!/home/yo/proj/django-portfolio-project/venv/bin/python
+#!/home/yo/Projects/django-portfolio-project/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

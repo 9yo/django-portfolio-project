@@ -11,8 +11,7 @@ class ContactSerializer(serializers.HyperlinkedModelSerializer):
 
 class ContactBookSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    contacts = serializers.HyperlinkedRelatedField(many=True,
-                                                view_name='contact-detail',
+    contacts = serializers.PrimaryKeyRelatedField(many=True,
                                                 queryset=Contact.objects.all())
 
     class Meta:

@@ -33,8 +33,11 @@ ALLOWED_HOSTS = []
 
 
 REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+    'PAGE_SIZE': 50,
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -56,7 +59,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'contacts',
-    'users'
+    'users',
+    'frontend'
 ]
 
 MIDDLEWARE = [
@@ -76,7 +80,9 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            str(BASE_DIR.parent) + '/frontend/dist'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -94,44 +100,45 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-# docker setup
-# DATABASES = {
-#     'default': {
-#
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#
-#         'NAME': os.environ.get('POSTGRES_NAME'),
-#
-#         'USER': os.environ.get('POSTGRES_USER'),
-#
-#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-#
-#         'HOST': 'db',
-#
-#         'PORT': '5432',
-#
-#     }
-# }
-
 # local db setup
 DATABASES = {
     'default': {
 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'contacts',
+    'NAME': 'contacts',
 
-        'USER': 'root',
+    'USER': 'root',
 
-        'PASSWORD': 'root',
+    'PASSWORD': 'root',
 
-        'HOST': 'localhost',
+    'HOST': 'localhost',
 
-        'PORT': '5432',
+    'PORT': '5432',
 
     }
 }
+
+# docker setup
+if os.environ.get('POSTGRES_NAME'):
+    DATABASES = {
+        'default': {
+
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+            'NAME': os.environ.get('POSTGRES_NAME'),
+
+            'USER': os.environ.get('POSTGRES_USER'),
+
+            'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+
+            'HOST': 'db',
+
+            'PORT': '5432',
+
+        }
+    }
+
 
 # github workflow setup
 if os.environ.get('GITHUB_WORKFLOW'):

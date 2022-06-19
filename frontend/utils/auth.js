@@ -34,7 +34,7 @@ applyAuthTokenInterceptor(axiosAuth, {
 
 // 4. Logging in
 export const login = async (username, password) => {
-  const response = await axiosAuth.post('/auth/login/', {username: username, password: password})
+  const response = await axiosAuth.post('/auth/token/', {username: username, password: password})
   .then(function (response) {
       setAuthTokens({
         accessToken: response.data.access,

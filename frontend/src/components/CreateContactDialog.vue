@@ -6,11 +6,10 @@
         <v-btn
           small
           color="#238636"
-          @click='creation_dialog=true'
           v-bind="attrs"
           v-on="on">
            <v-icon small>
-             mdi-account-box
+             mdi-account-plus
            </v-icon>
            <span class="pl-1 font-weight-light text-capitalize"> New </span>
          </v-btn>
@@ -72,7 +71,7 @@ export default {
   },
   methods: {
     save() {
-      axiosAuth.post('/contacts/', {
+      axiosAuth.post('/api/contacts/', {
         'name': this.fields_data[0],
         'number': this.fields_data[1],
         'comment': this.fields_data[2],

@@ -5,7 +5,6 @@
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           icon
-          style='position:absolute; right:0px; bottom: 0px'
           v-bind="attrs"
           v-on="on">
            <v-icon>
@@ -74,7 +73,7 @@ export default {
 
   methods: {
     edit() {
-      axiosAuth.patch(`/contact_books/${this.contact_book.id}/`, {
+      axiosAuth.patch(`/api/contact_books/${this.contact_book.id}/`, {
         'name': this.fields_data[0][1],
         'desc': this.fields_data[1][1],
         'contacts': []

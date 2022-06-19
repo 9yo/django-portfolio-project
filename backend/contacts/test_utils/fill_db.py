@@ -4,7 +4,7 @@ headers = {
     'Content-Type': 'application/json'
 }
 
-response = requests.post('http://localhost:8000/register/', headers=headers, json={
+response = requests.post('http://localhost:8000/auth/register/', headers=headers, json={
     'email': 'test@gmail.com',
     'username': 'test',
     'password': 'test'
@@ -14,7 +14,7 @@ response = requests.post('http://localhost:8000/register/', headers=headers, jso
 # with open('h.html', 'w') as f:
 #     f.write(results)
 
-response = requests.post('http://localhost:8000/auth/login/', json={
+response = requests.post('http://localhost:8000/auth/token/', json={
     'username': 'test',
     'password': 'test'
 })
@@ -29,16 +29,16 @@ comments = ['job', 'family', 'friends', 'medical assistant', '']
 
 
 headers['Authorization'] = f'Bearer {access_token}'
-# for i in range(len(names) - 1):
-#     response = requests.post('http://localhost:8000/contacts/', headers=headers, json={
-#         'name': names[i],
-#         'number': numbers[i],
-#         'comment': comments[i//10]
-#     })
-#     print('created id -', response.json().get('id'))
+for i in range(len(names) - 1):
+    response = requests.post('http://localhost:8000/api/contacts/', headers=headers, json={
+        'name': names[i],
+        'number': numbers[i],
+        'comment': comments[i//10]
+    })
+    print('created id -', response.json().get('id'))
 
 for i in range(len(comments) - 2):
-    response = requests.post('http://localhost:8000/contact_books/', headers=headers, json={
+    response = requests.post('http://localhost:8000/api/contact_books/', headers=headers, json={
         'name': comments[i],
         'desc': '',
         'contacts': []

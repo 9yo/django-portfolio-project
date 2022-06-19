@@ -146,7 +146,7 @@ export default {
       }
 
       this.wrong_data = false;
-      axiosDefault.post('register/', {
+      axiosDefault.post('/auth/register/', {
         username: this.username_storage,
         email: this.email_storage,
         password: this.password_storage
