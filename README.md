@@ -7,11 +7,16 @@
 
 **Table of Contents**
 
-[TOCM]
+- [Contacts Book](#contacts-book)
+- [What it is?](#what-it-is-)
+- [Functionality](#functionality)
+- [Stack](#stack)
+- [Docker install](#docker-install)
+- [Raw Install](#raw-install)
+- [After Install](#after-install)
 
-[TOC]
 
-#What it is?
+# What it is?
 A simple web project for storing and aggregating contacts.
 #Functionality
 With this app you can:
@@ -20,7 +25,7 @@ With this app you can:
 - Add/Remove contacts related to contact books.
 - Find contacts/contact books by their name.
 
-#Stack
+# Stack
 Backend:
 - Django
 - PostgreSQL
@@ -34,13 +39,13 @@ Frontend:
 - Axios
 
 
-#Docker install
+# Docker install
 Just install Docker and start with
 ```console
 	 docker-compose up
 
 ```
-#Raw Install
+# Raw Install
 First of all up PostgreSQL db and set it up as in backend/backend/settings.py.
 The second step is execute this commands:
 ```console
