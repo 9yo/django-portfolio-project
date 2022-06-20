@@ -18,7 +18,7 @@
 
 # What it is?
 A simple web project for storing and aggregating contacts.
-#Functionality
+# Functionality
 With this app you can:
 - Create/Edit/Delete Contacts
 - Create/Edit/Delete Contacts books which is at is core a contact groups like family, friend, etc...
