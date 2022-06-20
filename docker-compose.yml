@@ -9,16 +9,17 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-  web:
-    container_name: backend-web
-    build: .
-    command: >
-      sh -c "python backend/manage.py migrate &&
-             python backend/manage.py runserver 0.0.0.0:8000"
+  backend:
+    container_name: backend-app
+    build:
+      context: .
+      dockerfile: ./compose/backend/Dockerfile
     volumes:
-      - .:/code
+      - ./backend:/backend-app
     ports:
       - "8000:8000"
+    expose:
+      - 8000
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
@@ -26,11 +27,16 @@ services:
     depends_on:
       - db
 
-  # filldb:
-  #   build: .
-  #   command: >
-  #     sh -c "python contacs/test_utils/fill_db.py"
-  #   volumes:
-  #     - .:/code
-  #   depends_on:
-  #     - web
+  frontend:
+    container_name: frontend-app
+    build:
+      context: .
+      dockerfile: ./compose/frontend/Dockerfile
+    volumes:
+      - ./frontend:/frontend-app
+    ports:
+      - "8080:8080"
+    expose:
+      - 8080
+    depends_on:
+      - backend

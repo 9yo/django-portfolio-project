@@ -16,7 +16,7 @@ router = routers.DefaultRouter()
 router.register(r'users', user_views.UserViewSet)
 
 urlpatterns = [
-    path('', include('frontend.urls')),
+    # path('', include('frontend.urls')),
     path('api/', include(router.urls)),
     path('api/', include('contacts.urls')),
     path('auth/register/', user_views.CreateUserView.as_view(), name='user'),
@@ -24,4 +24,4 @@ urlpatterns = [
     path('auth/refresh_token/', TokenRefreshView.as_view(), name='token_refresh'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-urlpatterns += [re_path(r'^', TemplateView.as_view(template_name='index.html'))]
+# urlpatterns += [re_path(r'^', TemplateView.as_view(template_name='index.html'))]
